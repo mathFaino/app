@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:psicoapp/widgets/patientTile.dart';
 import 'package:psicoapp/widgets/teste.dart';
 
-class Consulta extends StatelessWidget {
+class ListaPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -15,8 +16,8 @@ class Consulta extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextCamp(label: "Data", enabled: true, inputType: TextInputType.datetime,),
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
             )
           ],
         ),

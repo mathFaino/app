@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:psicoapp/widgets/teste.dart';
+import 'package:psicoapp/widgets/textCamp.dart';
 
 class Consulta extends StatelessWidget {
   @override

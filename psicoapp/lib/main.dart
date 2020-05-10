@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:psicoapp/screens/consulta.dart';
+import 'package:psicoapp/screens/listaConsultas.dart';
 import 'package:psicoapp/screens/listaPacientes.dart';
 
 void main() => runApp(MyApp());
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PsicoAPP',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           color: Color(0xFFFD8E4B)
@@ -68,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Container(color: Color(0xFFE9E3E3),),
+            ListaConsultas(),
             Container(color: Color(0xFFE9E3E3),),
             ListaPaciente(),
             Consulta(),
@@ -84,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Consultas'),
               icon: Icon(Icons.home),
               activeColor: Color(0xFFE9E3E3)
           ),
@@ -94,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
               activeColor: Color(0xFFE9E3E3)
           ),
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Pacientes'),
               icon: Icon(Icons.chat_bubble),
               activeColor: Color(0xFFE9E3E3)
           ),

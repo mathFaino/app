@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:psicoapp/screens/consulta.dart';
 import 'package:psicoapp/screens/listaConsultas.dart';
 import 'package:psicoapp/screens/listaPacientes.dart';
+import 'package:psicoapp/screens/perfil.dart';
 
 void main() => runApp(MyApp());
 
@@ -71,9 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           children: <Widget>[
             ListaConsultas(),
-            Container(color: Color(0xFFE9E3E3),),
+            Perfil(),
             ListaPaciente(),
-            Consulta(),
           ],
         ),
       ),
@@ -91,18 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
               activeColor: Color(0xFFE9E3E3)
           ),
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Perfil'),
               icon: Icon(Icons.apps),
               activeColor: Color(0xFFE9E3E3)
           ),
           BottomNavyBarItem(
               title: Text('Pacientes'),
               icon: Icon(Icons.chat_bubble),
-              activeColor: Color(0xFFE9E3E3)
-          ),
-          BottomNavyBarItem(
-              title: Text('Item One'),
-              icon: Icon(Icons.settings),
               activeColor: Color(0xFFE9E3E3)
           ),
         ],

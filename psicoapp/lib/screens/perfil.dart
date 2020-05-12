@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:psicoapp/widgets/itemTile.dart';
 
 class Perfil extends StatelessWidget {
   @override
@@ -11,39 +13,214 @@ class Perfil extends StatelessWidget {
           Column(
             children: <Widget>[
               Container(
-                height: (MediaQuery.of(context).size.height - 56)/3,
-                width: double.infinity,
-                color:  Color(0xFF4B2637),
+                height: (MediaQuery.of(context).size.height - 56) / 3,
+                width: MediaQuery.of(context).size.width,
+                color: Color(0xFF4B2637),
               ),
               Container(
-                height: (MediaQuery.of(context).size.height - 56)  - ((MediaQuery.of(context).size.height - 56)/3),
-                width: double.infinity,
-                color:  Color(0xFFE9E3E3),
+                height: (MediaQuery.of(context).size.height - 56) -
+                    ((MediaQuery.of(context).size.height - 56) / 3),
+                width: MediaQuery.of(context).size.width,
+                color: Color(0xFFE9E3E3),
               ),
             ],
           ),
           Positioned(
-            top: (MediaQuery.of(context).size.height - 56)/5,
-            child: Container(
-                child: CircleAvatar(
-                  radius: 101,
-                  backgroundColor: Color(0xFFE9E3E3),
-                  foregroundColor: Colors.red,
-                  child: Icon(
-                    Icons.adb,
-                    color: Color(0xFFB3A2A2),
-                    size: 90,
+            top: (MediaQuery.of(context).size.height - 56) / 5,
+            child: Column(
+              children: <Widget>[
+                Container(
+                    child: CircleAvatar(
+                      radius: 101,
+                      backgroundColor: Color(0xFFE9E3E3),
+                      child: Icon(
+                        Icons.adb,
+                        color: Color(0xFFB3A2A2),
+                        size: 90,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(2.0), // borde width
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF7D2941), // border color
+                      shape: BoxShape.circle,
+                    )),
+                Text(
+                  "Larrive Marques da Silva Faino",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Card(
+                      margin: EdgeInsets.all(10),
+                      color: Color(0xFFE9E3E3),
+                      elevation: 10,
+                      shape: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                          ),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width - 20,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            ItemTile(
+                              icone: Icons.branding_watermark,
+                              titulo: "CRM",
+                              valor: "12/1234",
+                            ),
+                            ItemTile(
+                              icone: Icons.recent_actors,
+                              titulo: "CRP",
+                              valor: "12/12345",
+                            ),
+                            ItemTile(
+                              icone: Icons.call,
+                              titulo: "Tel.",
+                              valor: "(69)9 9291-9999",
+                            ),
+                            ItemTile(
+                              icone: Icons.alternate_email,
+                              titulo: "Mail",
+                              valor: "larrive@mail.com",
+                            ),
+                          ],
+                        ),
+                      ),
                   ),
                 ),
-                padding: const EdgeInsets.all(2.0), // borde width
-                decoration: new BoxDecoration(
-                  color: const Color(0xFF7D2941), // border color
-                  shape: BoxShape.circle,
-                )
+              ],
             ),
           ),
+          Positioned(
+              right: 5,
+              top: 35,
+              child: GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: const Color(0xFF7D2941),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.settings,
+                      color: Color(0xFFE9E3E3),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  print("teste");
+                },
+              )),
         ],
-      ) ,
+      ),
     );
   }
 }
+
+/*
+* Positioned(
+            left: 10,
+            top: (MediaQuery.of(context).size.height - 56)/2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Nome: ",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 0),
+                  child: Container(
+                    child: Text(
+                      "Jão Pedro Paulo de Paulina",
+                      style: TextStyle(
+                        color: Color(0xFF7D2941),
+                        fontSize: 18,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Color(0xFF4B2637), width: 4 )),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "CRP: ",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 0),
+                              child: Container(
+                                child: Text(
+                                  "21/12345",
+                                  style: TextStyle(
+                                    color: Color(0xFF7D2941),
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: Color(0xFF4B2637), width: 4 )),
+                                ),
+                              ),
+                            ),
+                          ]
+                      ),
+                      SizedBox(width: 20,),
+
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "CRM: ",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.only(left: 0),
+                              child: Container(
+                                child: Text(
+                                  "21/123452",
+                                  style: TextStyle(
+                                    color: Color(0xFF7D2941),
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: Color(0xFF4B2637), width: 4 )),
+                                ),
+                              ),
+                            ),
+                          ]
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+* */

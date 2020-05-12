@@ -19,7 +19,7 @@ class TextCamp extends StatelessWidget{
   Widget build(BuildContext context) {
     return TextField(
       obscureText: obscure == null ? false : obscure,
-      enabled: enabled != null ?  true : enabled ,
+      enabled: enabled == null ?  true : enabled ,
       controller: controller,
       onChanged: onChanged,
       maxLines: 1,

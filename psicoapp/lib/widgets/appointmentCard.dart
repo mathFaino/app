@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:psicoapp/widgets/textCamp.dart';
 
@@ -14,7 +15,7 @@ class AppointmentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Card(
-        color: situacao == null ? Colors.red[200] : Colors.green[200],
+        color: Color(0xFFE9E3E3),
         elevation: 5,
         shape: Border(left: BorderSide(color: situacao == null ? Colors.red : Colors.green, width: 6,)),
         child: Column(
@@ -22,14 +23,19 @@ class AppointmentCard extends StatelessWidget {
             Row(
               children: <Widget>[
                Padding(
-                 padding: EdgeInsets.only(left: 7, top: 3),
+                 padding: EdgeInsets.only(left: 10, top: 3),
                  child:  Container(
+
                    padding: EdgeInsets.only(left: 4),
                    width: 70,
                    height: 20,
                    decoration: BoxDecoration(
                      borderRadius: BorderRadius.circular(40),
                      color: Color(0xFFE9E3E3),
+                     boxShadow: [BoxShadow(
+                       color: Colors.grey,
+                       blurRadius: 5
+                     )]
                    ),
                    child: Row(
                      children: <Widget>[
@@ -40,13 +46,16 @@ class AppointmentCard extends StatelessWidget {
                              fontSize: 14
                          ),
                        ),
-                       Text(
-                         cod.toString(),
-                         style: TextStyle(
-                             color: Colors.black54,
-                             fontSize: 14
-                         ),
-                       ),
+                      Flexible(
+                        child:  Text(
+                          cod.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 14
+                          ),
+                        ),
+                      )
                      ],
                    ),
                  ),
@@ -105,7 +114,7 @@ class AppointmentCard extends StatelessWidget {
           ],
         ),
       ),
-      onTap: (){},
+      onTap: (){print("Tap'ado'");},
     );
   }
 }

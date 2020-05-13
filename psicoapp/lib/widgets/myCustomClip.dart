@@ -6,7 +6,6 @@ class MyCustomClip extends CustomClipper<Path>{
     Path path = Path();
 
     path.lineTo(0.0, 200);
-    path.lineTo(200, 100.0);
 
     var controlPoint = Offset(((size.width/2)/2), ((size.height/2)/2));//X = ((size.width/2)/2) e Y = ((size.heigth/2)/2) ponto de controle
     var endPoint = Offset(size.width, 0);//pontos da reta x= valor máximo e y = 0

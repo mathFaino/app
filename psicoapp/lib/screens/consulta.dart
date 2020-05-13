@@ -16,7 +16,7 @@ class Consulta extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextCamp(label: "Data", enabled: true, inputType: TextInputType.datetime,),
+              child: TextCamp(label: "Data", enabledCamp: true, inputType: TextInputType.datetime,),
             )
           ],
         ),

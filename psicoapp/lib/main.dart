@@ -8,6 +8,7 @@ import 'package:psicoapp/screens/listaConsultas.dart';
 import 'package:psicoapp/screens/listaPacientes.dart';
 import 'package:psicoapp/screens/perfil.dart';
 import 'package:psicoapp/screens/addNewPaciente.dart';
+import 'package:psicoapp/screens/addNewConsulta.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
         routes: <String, WidgetBuilder>{
-          "/AddNewPaciente" : (BuildContext context) => AddnewPaciente()
+          "/AddNewPaciente" : (BuildContext context) => AddnewPaciente(),
+          "/AddNewConsulta" : (BuildContext context) => AddNewConsulta()
         },
       ),
     );
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
           subtitle: "Você pode registrar novas consultas",
           subTitleColor: Colors.white,
           backgroundColor: Color(0xFF7D2941),
-          onTap: () => print('FIRST CHILD'),
+          onTap: (() => Navigator.of(context).pushNamed('/AddNewConsulta')),
         ),
         MenuItem(
           child: Icon(Icons.person, color: Colors.black),

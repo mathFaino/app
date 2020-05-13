@@ -29,37 +29,37 @@ class AddnewPaciente extends StatelessWidget{
               children: <Widget>[
                 SizedBox(height: 5,),
                 TextCamp(
-                  enabled: true,
+                  enabledCamp: true,
                   inputType: TextInputType.text,
                   label: "Nome: ",
-                  prefix: Icon(Icons.person),
+                  prefix: Icons.person,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextCamp(
-                  enabled: true,
+                  enabledCamp: true,
                   inputType: TextInputType.number,
                   label: "CPF: ",
-                  prefix: Icon(Icons.recent_actors),
+                  prefix: Icons.recent_actors,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextCamp(
-                  enabled: true,
+                  enabledCamp: true,
                   inputType: TextInputType.number,
                   label: "Cartão SUS: ",
-                  prefix: Icon(Icons.branding_watermark),
+                  prefix: Icons.branding_watermark,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextCamp(
-                  enabled: true,
+                  enabledCamp: true,
                   inputType: TextInputType.datetime,
                   label: "Data de Nascimento: ",
-                  prefix: Icon(Icons.event),
+                  prefix: Icons.event,
                 ),
                 SizedBox(
                   height: 20,

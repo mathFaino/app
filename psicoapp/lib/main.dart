@@ -3,12 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boom_menu/flutter_boom_menu.dart';
+import 'package:psicoapp/screens/addPaciente.dart';
 import 'package:psicoapp/screens/consulta.dart';
 import 'package:psicoapp/screens/listaConsultas.dart';
 import 'package:psicoapp/screens/listaPacientes.dart';
 import 'package:psicoapp/screens/perfil.dart';
 import 'package:psicoapp/screens/addNewPaciente.dart';
 import 'package:psicoapp/screens/addNewConsulta.dart';
+import 'package:psicoapp/screens/addPaciente.dart';
+import 'package:psicoapp/screens/perfilPaciente.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,7 +45,9 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'Flutter Demo Home Page'),
         routes: <String, WidgetBuilder>{
           "/AddNewPaciente" : (BuildContext context) => AddnewPaciente(),
-          "/AddNewConsulta" : (BuildContext context) => AddNewConsulta()
+          "/AddNewConsulta" : (BuildContext context) => AddNewConsulta(),
+          "/AddPaciente" : (BuildContext context) => AddPaciente(),
+          "/PerfilPaciente" : (BuildContext context) => PerfilPaciente()
         },
       ),
     );
@@ -113,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           subtitle: "Adicionar paciente já registrado",
           subTitleColor: Colors.white,
           backgroundColor: Colors.blue[900],
-          onTap: () => print('SECOND CHILD'),
+          onTap: (() => Navigator.of(context).pushNamed('/AddPaciente')),
         ),
         MenuItem(
           child: Icon(Icons.person_add, color: Colors.black),

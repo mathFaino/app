@@ -27,12 +27,12 @@ class MyApp extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         FocusScopeNode actFocus = FocusScope.of(context);
-
         if(!actFocus.hasPrimaryFocus) {
           actFocus.unfocus();
         }
       },
       child: MaterialApp(
+
         title: 'PsicoAPP',
         debugShowCheckedModeBanner: false,
 
@@ -42,12 +42,13 @@ class MyApp extends StatelessWidget {
               //Color(0xFF0A2E5C)
             )
         ),
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        home: MyHomePage(title: 'APP Flutter'),
         routes: <String, WidgetBuilder>{
           "/AddNewPaciente" : (BuildContext context) => AddnewPaciente(),
           "/AddNewConsulta" : (BuildContext context) => AddNewConsulta(),
           "/AddPaciente" : (BuildContext context) => AddPaciente(),
-          "/PerfilPaciente" : (BuildContext context) => PerfilPaciente()
+          "/PerfilPaciente" : (BuildContext context) => PerfilPaciente(),
+          "/Consulta" : (BuildContext context) => Consulta()
         },
       ),
     );
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
   @override

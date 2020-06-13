@@ -114,7 +114,10 @@ class AppointmentCard extends StatelessWidget {
           ],
         ),
       ),
-      onTap: (){print("Tap'ado'");},
+      onTap: (){
+        print("Tap'ado'");
+        Navigator.of(context).pushNamed('/Consulta');
+      },
     );
   }
 }

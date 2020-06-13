@@ -5,6 +5,7 @@ import 'package:psicoapp/widgets/patientTile.dart';
 class AddPaciente extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
 
@@ -27,17 +28,20 @@ class AddPaciente extends StatelessWidget{
                   SizedBox(
                     height: 120,
                   ),
+                  PatienteTile(nome: "Matheus da Silva", data: "20/10/2019",),
+                  PatienteTile(nome: "Matheus Pereira", data: "20/10/2019",),
+                  PatienteTile(nome: "Jõao Matheus Rocha", data: "20/10/2019",),
+                  PatienteTile(nome: "Matheus Pedro Carvalho", data: "20/10/2019",),
+                  PatienteTile(nome: "Theo Faino", data: "20/10/2019",),
                   PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
-                  PatienteTile(nome: "Matheus Faino", data: "20/10/2019",),
+                  PatienteTile(nome: "João Pedro", data: "20/10/2019",),
+                  PatienteTile(nome: "Cláudio Silva", data: "20/10/2019",),
+                  PatienteTile(nome: "Luana Silva", data: "20/10/2019",),
+                  PatienteTile(nome: "Monik Oliveira", data: "20/10/2019",),
+                  PatienteTile(nome: "Scarlett Johanson", data: "20/10/2019",),
+                  PatienteTile(nome: "Jackson Ferreira", data: "20/10/2019",),
+                  PatienteTile(nome: "Ágata Marques", data: "20/10/2019",),
+                  PatienteTile(nome: "Joan Watson", data: "20/10/2019",),
                 ],
               ),
             ),

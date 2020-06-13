@@ -27,7 +27,7 @@ class PerfilPaciente extends StatelessWidget {
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                     child: Icon(Icons.account_box, size: 80, color: Color(0xFFB3A2A2),),
                   ),
-                  Text("Larrive Marques da Silva Faino", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 20),),
+                  Text("Ágata Silva", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 20),),
                   SizedBox(height: 20,),
                   Card(
                     color: Color(0xFFE9E3E3),
@@ -87,7 +87,7 @@ class PerfilPaciente extends StatelessWidget {
                           color: Color(0xFF4B2637),
                         ),
                         child: Text(
-                          "Adicionar Paciente",
+                          "Adicionar Consulta",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

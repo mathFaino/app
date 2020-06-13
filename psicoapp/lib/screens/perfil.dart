@@ -33,11 +33,18 @@ class Perfil extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 101,
                       backgroundColor: Color(0xFFE9E3E3),
-                      child: Icon(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        clipBehavior: Clip.hardEdge,
+                        child: Image.asset('images/imagem.png',fit: BoxFit.cover, alignment: Alignment.center,),
+                      )
+                      
+                      
+                      /*Icon(
                         Icons.adb,
                         color: Color(0xFFB3A2A2),
                         size: 90,
-                      ),
+                      ),*/
                     ),
                     padding: const EdgeInsets.all(2.0), // borde width
                     decoration: BoxDecoration(

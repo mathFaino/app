@@ -12,6 +12,8 @@ import 'package:psicoapp/screens/addNewPaciente.dart';
 import 'package:psicoapp/screens/addNewConsulta.dart';
 import 'package:psicoapp/screens/addPaciente.dart';
 import 'package:psicoapp/screens/perfilPaciente.dart';
+import 'package:psicoapp/screens/cadastroEspecialista.dart';
+import 'package:psicoapp/screens/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +50,8 @@ class MyApp extends StatelessWidget {
           "/AddNewConsulta" : (BuildContext context) => AddNewConsulta(),
           "/AddPaciente" : (BuildContext context) => AddPaciente(),
           "/PerfilPaciente" : (BuildContext context) => PerfilPaciente(),
-          "/Consulta" : (BuildContext context) => Consulta()
+          "/Consulta" : (BuildContext context) => Consulta(),
+          "/teste" : (BuildContext context) => Login()
         },
       ),
     );
@@ -69,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
 
   @override
-  void initState() {
+    void initState() {
     super.initState();
     _pageController = PageController();
   }
@@ -111,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
           subtitle: "Você pode registrar novas consultas",
           subTitleColor: Colors.white,
           backgroundColor: Color(0xFF7D2941),
-          onTap: (() => Navigator.of(context).pushNamed('/AddNewConsulta')),
+          onTap: (() => Navigator.of(context).pushNamed('/teste')),
         ),
         MenuItem(
           child: Icon(Icons.person, color: Colors.black),

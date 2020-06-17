@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:psicoapp/widgets/textCamp.dart';
 
 class Login extends StatefulWidget {
+  Login({Key key, this.title}) : super(key: key);
+  final String title;
   @override
   _LoginState createState() => _LoginState();
 }
@@ -59,7 +61,7 @@ class _LoginState extends State<Login> {
             FlatButton(
               padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
               color: Color(0xFF7D2941),
-              onPressed: (){},
+              onPressed: (){Navigator.of(context).popAndPushNamed('/Home');},
               child: Text(
                 "Entrar",
                 style: TextStyle(
@@ -72,7 +74,7 @@ class _LoginState extends State<Login> {
             FlatButton(
               padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
               color: Colors.transparent,
-              onPressed: (){},
+              onPressed: (){Navigator.of(context).pushNamed('/Cadastro');},
               child: Text(
                 "Cadastrar-se",
                 style: TextStyle(

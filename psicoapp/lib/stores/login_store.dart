@@ -36,9 +36,9 @@ abstract class _LoginStore with Store{
   @action
   entrar() {
     if(loginTodo){
-      user = User(username: "Rubiscreyson", pass: '123456' );
+      user = User(username: usercredential, pass: password );
       buscaToken().then((token){
-        print(token);
+        print(token.token);
       });
     }
   }

@@ -12,9 +12,16 @@ class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store{
   User user;
+  Key key;
 
   @observable
   String usercredential = '';
+
+  @observable
+  bool _logado = false;
+
+  @computed
+  bool get logado => _logado;
 
   @action
   changeName(String value){
@@ -29,16 +36,31 @@ abstract class _LoginStore with Store{
   }
 
   @computed
-  bool get loginTodo {
-    return (usercredential != '') && (password != '');
+  bool get verificaCampos {
+    return (usercredential != '') && ((password != '') && (password.length >= 6));
   }
 
   @action
   entrar() {
-    if(loginTodo){
+    if(verificaCampos){
+      print(usercredential);
       user = User(username: usercredential, pass: password );
       buscaToken().then((token){
-        print(token.token);
+        if(token.token != null){
+          print(token.token);
+          key = token;
+          buscaUser().then((newUser){
+             if(newUser != null){
+               user = newUser;
+               if(user.id != null){
+                 print(user.id);
+                 _logado = true;
+               }
+             }else{
+               print('erro');
+             }
+          });
+        }
       });
     }
   }
@@ -48,6 +70,20 @@ abstract class _LoginStore with Store{
       final response = await http.post(ConstsAPi.baseApiURL+'api-token-auth/', body: user.toJson());
       var decodedJson = jsonDecode(response.body);
       return Key.fromJson(decodedJson);
+    }catch(_){
+      print(_);
+      return null;
+    }
+  }
+
+  Future<User> buscaUser() async{
+    try{
+      final response = await http.get(ConstsAPi.baseApiURL+'user/?search=' + usercredential);
+      var trueResponse = response.body;
+      trueResponse = trueResponse.replaceAll('[', '');
+      trueResponse = trueResponse.replaceAll(']', '');
+      var decodedJson = jsonDecode(trueResponse);
+      return User.fromJson(decodedJson);
     }catch(_){
       print(_);
       return null;

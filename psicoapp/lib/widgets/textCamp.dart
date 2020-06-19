@@ -38,9 +38,9 @@ class TextCamp extends StatelessWidget{
         labelText: label,
         suffixIcon: sufix,
         hoverColor: Color(0xFFB3A2A2),
-        labelStyle: TextStyle(color: Colors.black),
+        labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
              ),
-      style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+      style: TextStyle(color: Colors.black, fontSize: 18.0),
     );
   }
 }

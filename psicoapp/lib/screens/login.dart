@@ -1,21 +1,92 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:psicoapp/stores/login_store.dart';
 import 'package:psicoapp/widgets/textCamp.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
   final String title;
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-
-  LoginStore loginStore = LoginStore();
-
   @override
   Widget build(BuildContext context) {
+    LoginStore loginStore = Provider.of<LoginStore>(context);
+
+    void seeDialog(context) {
+      showDialog(
+        context: context,
+        child: Observer(
+          builder: (_) {
+            return loginStore.logado == false
+                ? AlertDialog(
+                    title: Text('Erro ao Logar!'),
+                    content: Text(
+                        'Suas credenciais são inválidas! Cadastre-se ou tente novamente.'),
+                    actions: <Widget>[
+                      FlatButton(
+                        color: Color(0xFF7D2941),
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Color(0xFFE9E3E3),
+                        ),
+                      )
+                    ],
+                  )
+                : AlertDialog(
+                    title: Text('LogIn Realizado com Sucesso!'),
+                    content: Text(
+                      'Bem Vindo(a), ' +
+                          loginStore.user.username +
+                          '!\nDeseja Continuar?',
+                      maxLines: 2,
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        color: Color(0xFF7D2941),
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Color(0xFFE9E3E3),
+                        ),
+                      ),
+                      FlatButton(
+                        color: Colors.green,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).popAndPushNamed('/Home');
+                        },
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFFE9E3E3),
+                        ),
+                      )
+                    ],
+                  );
+          },
+        ),
+      );
+    }
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -27,7 +98,11 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.event_seat,color: Color(0xFF7D2941),size: 80,),
+              Icon(
+                Icons.event_seat,
+                color: Color(0xFF7D2941),
+                size: 80,
+              ),
               Text(
                 "PSICO-APP",
                 style: TextStyle(
@@ -35,8 +110,11 @@ class _LoginState extends State<Login> {
                     fontSize: 38,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 120,),
-              Row(mainAxisAlignment: MainAxisAlignment.start,
+              SizedBox(
+                height: 120,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     "Login: ",
@@ -45,8 +123,11 @@ class _LoginState extends State<Login> {
                         fontSize: 26,
                         fontWeight: FontWeight.bold),
                   ),
-                ],),
-              SizedBox(height: 10,),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
               TextCamp(
                 enabledCamp: true,
                 inputType: TextInputType.text,
@@ -69,37 +150,28 @@ class _LoginState extends State<Login> {
                 height: 20,
               ),
               FlatButton(
-                padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                padding:
+                    EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
                 color: Color(0xFF7D2941),
-                onPressed: (){
-                  loginStore.entrar();
-                  //Navigator.of(context).popAndPushNamed('/Home');
-                  },
+                onPressed: () {
+                  loginStore.entrar().then(seeDialog(context));
+                },
                 child: Text(
                   "Entrar",
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xFFE9E3E3)
-                  ),
+                  style: TextStyle(fontSize: 18, color: Color(0xFFE9E3E3)),
                 ),
               ),
-
-              Observer(
-                builder: (_){
-                  return  FlatButton(
-                      padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
-                      color: Colors.transparent,
-                      onPressed: (){Navigator.of(context).pushNamed('/Cadastro');},
-                      child: loginStore.loginTodo == false ? Text(
-                        'Cadastre-se',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black
-                        ),
-                      ) : Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),),)
-                  );
-                },
-              )
+              FlatButton(
+                  padding:
+                      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                  color: Colors.transparent,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/Cadastro');
+                  },
+                  child: Text(
+                    'Cadastre-se',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  )),
             ],
           ),
         ),
@@ -107,3 +179,13 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+/*
+Center(
+child: CircularProgressIndicator(
+valueColor: AlwaysStoppedAnimation<Color>(
+Colors.purple),
+),
+)
+
+ */

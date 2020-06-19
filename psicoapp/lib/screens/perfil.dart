@@ -36,7 +36,7 @@ class Perfil extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         clipBehavior: Clip.hardEdge,
-                        child: Image.asset('images/imagem.png',fit: BoxFit.cover, alignment: Alignment.center,),
+                        child: Image.asset('images/imagem.jpg',fit: BoxFit.cover, alignment: Alignment.center,),
                       )
                       
                       

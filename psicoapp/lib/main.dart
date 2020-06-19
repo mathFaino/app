@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:psicoapp/screens/addPaciente.dart';
 import 'package:psicoapp/screens/consulta.dart';
 import 'package:psicoapp/screens/home.dart';
@@ -13,6 +14,8 @@ import 'package:psicoapp/screens/addPaciente.dart';
 import 'package:psicoapp/screens/perfilPaciente.dart';
 import 'package:psicoapp/screens/cadastroEspecialista.dart';
 import 'package:psicoapp/screens/login.dart';
+import 'package:psicoapp/models/key.dart';
+import 'package:psicoapp/stores/login_store.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,35 +24,46 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 }
+
 class MyApp extends StatelessWidget {
   static const String titulo = 'Psico-APP';
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScopeNode actFocus = FocusScope.of(context);
-        if(!actFocus.hasPrimaryFocus) {
+        if (!actFocus.hasPrimaryFocus) {
           actFocus.unfocus();
         }
       },
-      child: MaterialApp(
-        title: titulo,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
-        home: Login(title: titulo),
-        routes: <String, WidgetBuilder>{
-          "/AddNewPaciente" : (BuildContext context) => AddnewPaciente(),
-          "/AddNewConsulta" : (BuildContext context) => AddNewConsulta(),
-          "/AddPaciente" : (BuildContext context) => AddPaciente(),
-          "/PerfilPaciente" : (BuildContext context) => PerfilPaciente(),
-          "/Consulta" : (BuildContext context) => Consulta(),
-          "/Login" : (BuildContext context) => Login(title: titulo,),
-          "/Cadastro" : (BuildContext context) => CadastroEspecialista(),
-          "/Home" : (BuildContext context) => MyHomePage(title: titulo,),
-        },
+      child: MultiProvider(
+        providers: [
+          Provider<LoginStore>(
+            create: (_) => LoginStore(),
+          ),
+        ],
+        child: MaterialApp(
+          title: titulo,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(),
+          home: Login(title: titulo),
+          routes: <String, WidgetBuilder>{
+            "/AddNewPaciente": (BuildContext context) => AddnewPaciente(),
+            "/AddNewConsulta": (BuildContext context) => AddNewConsulta(),
+            "/AddPaciente": (BuildContext context) => AddPaciente(),
+            "/PerfilPaciente": (BuildContext context) => PerfilPaciente(),
+            "/Consulta": (BuildContext context) => Consulta(),
+            "/Login": (BuildContext context) => Login(
+                  title: titulo,
+                ),
+            "/Cadastro": (BuildContext context) => CadastroEspecialista(),
+            "/Home": (BuildContext context) => MyHomePage(
+                  title: titulo,
+                ),
+          },
+        ),
       ),
     );
   }
 }
-
-

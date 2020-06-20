@@ -18,7 +18,7 @@ abstract class _LoginStore with Store{
   String usercredential = '';
 
   @observable
-  bool _logado = false;
+  bool _logado;
 
   @computed
   bool get logado => _logado;
@@ -55,13 +55,19 @@ abstract class _LoginStore with Store{
                if(user.id != null){
                  print(user.id);
                  _logado = true;
+               }else{
+                 _logado = false;
                }
              }else{
-               print('erro');
+               _logado = false;
              }
           });
+        }else{
+          _logado = false;
         }
       });
+    }else{
+      _logado = false;
     }
   }
 

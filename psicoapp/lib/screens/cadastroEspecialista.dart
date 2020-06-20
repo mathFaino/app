@@ -14,12 +14,86 @@ class CadastroEspecialista extends StatefulWidget {
 
 class _CadastroEspecialistaState extends State<CadastroEspecialista> {
   CadastroStore cadastroStore = CadastroStore();
-
   @override
   BuildContext get context => super.context;
 
   @override
   Widget build(BuildContext context) {
+
+    void seeDialog(context) {
+      showDialog(
+        context: context,
+        child: Observer(
+          builder: (_) {
+            return cadastroStore.cadastrado == null
+                ? AlertDialog(
+                    title: Text('Carregando!'),
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CircularProgressIndicator()
+                      ],
+                    ),
+                  )
+                : cadastroStore.cadastrado == true
+                    ? AlertDialog(
+                        title: Text('Cadastrado com Sucesso!'),
+                        content: Text(
+                          'Você já pode realizar o Login!',
+                          maxLines: 1,
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            color: Colors.green,
+                            shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.check,
+                              color: Color(0xFFE9E3E3),
+                            ),
+                          )
+                        ],
+                      )
+                    : AlertDialog(
+                        title: Text('Erro ao cadastrar!'),
+                        content: Text(
+                            'Verifique as seguintes informações: \n'
+                             + '\n'
+                             + ' • Todos os campos devem ser preenchidos*;\n'
+                             + ' • A excessão é que o CRM e/ou o CRP deve ser preenchido;\n'
+                             + ' • A senha deve conter mais de 6 digitos;\n'
+                             + ' • O Email deve ser válido;\n'
+                             + ' • O CPF deve ser válido;',
+                          maxLines: 10,
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            color: Color(0xFF7D2941),
+                            shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: Color(0xFFE9E3E3),
+                            ),
+                          )
+                        ],
+                      );
+          },
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text("Cadastro"),
@@ -70,7 +144,7 @@ class _CadastroEspecialistaState extends State<CadastroEspecialista> {
                         ),
                         TextCamp(
                           enabledCamp: true,
-                          inputType: TextInputType.number,
+                          inputType: TextInputType.datetime,
                           label: "CRP: ",
                           prefix: Icons.recent_actors,
                           onChanged: cadastroStore.changeCrp,
@@ -80,14 +154,15 @@ class _CadastroEspecialistaState extends State<CadastroEspecialista> {
                         ),
                         TextCamp(
                           enabledCamp: true,
-                          inputType: TextInputType.number,
+                          inputType: TextInputType.datetime,
                           label: "CRM: ",
                           prefix: Icons.recent_actors,
                           onChanged: cadastroStore.changeCrm,
                         ),
                         SizedBox(
                           height: 10,
-                        ),TextCamp(
+                        ),
+                        TextCamp(
                           enabledCamp: true,
                           inputType: TextInputType.number,
                           label: "CPF: ",
@@ -136,24 +211,29 @@ class _CadastroEspecialistaState extends State<CadastroEspecialista> {
                           height: 20,
                         ),
                         FlatButton(
-                          padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                          padding: EdgeInsets.only(
+                              top: 13, bottom: 13, left: 10, right: 10),
                           color: Color(0xFF7D2941),
-                          onPressed: (){},
+                          onPressed: () {
+                            cadastroStore.cadastrar();
+                            seeDialog(context);
+                          },
                           child: Text(
                             "Finalizar",
                             style: TextStyle(
-                                fontSize: 18,
-                                color: Color(0xFFE9E3E3)
-                            ),
+                                fontSize: 18, color: Color(0xFFE9E3E3)),
                           ),
                         ),
-                       Container(
-                         child:  Observer(builder: (_){
-                           return cadastroStore.ver == false ?
-                           Text('Ainda não!') :
-                           Center(child: CircularProgressIndicator(),);
-                         }),
-                       )
+                        Observer(builder: (_) {
+                          return MaterialButton(
+                            onPressed: () {},
+                            child: cadastroStore.verificados == false
+                                ? Text('Ainda não!')
+                                : Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                          );
+                        })
                       ],
                     ),
                   ),
@@ -167,12 +247,13 @@ class _CadastroEspecialistaState extends State<CadastroEspecialista> {
                         child: GestureDetector(
                           onTap: cadastroStore.selectImage,
                           child: Observer(
-                            builder: (_){
+                            builder: (_) {
                               return CircleAvatar(
-                                  backgroundImage: cadastroStore.getImage == null ? AssetImage('images/imagem.jpg'):
-                                     FileImage(cadastroStore.getImage),
-                                  radius: 101,
-                                  backgroundColor: Color(0xFFE9E3E3),
+                                backgroundImage: cadastroStore.getImage == null
+                                    ? AssetImage('images/imagem.jpg')
+                                    : FileImage(cadastroStore.getImage),
+                                radius: 101,
+                                backgroundColor: Color(0xFFE9E3E3),
                               );
                             },
                           ),
@@ -181,8 +262,7 @@ class _CadastroEspecialistaState extends State<CadastroEspecialista> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF7D2941), // border color
                           shape: BoxShape.circle,
-                        )
-                    ),
+                        )),
                   ],
                 ),
               ),

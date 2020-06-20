@@ -23,65 +23,76 @@ class _LoginState extends State<Login> {
         context: context,
         child: Observer(
           builder: (_) {
-            return loginStore.logado == false
+            return loginStore.logado == null
                 ? AlertDialog(
-                    title: Text('Erro ao Logar!'),
-                    content: Text(
-                        'Suas credenciais são inválidas! Cadastre-se ou tente novamente.'),
-                    actions: <Widget>[
-                      FlatButton(
-                        color: Color(0xFF7D2941),
-                        shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.close,
-                          color: Color(0xFFE9E3E3),
-                        ),
-                      )
-                    ],
-                  )
-                : AlertDialog(
-                    title: Text('LogIn Realizado com Sucesso!'),
-                    content: Text(
-                      'Bem Vindo(a), ' +
-                          loginStore.user.username +
-                          '!\nDeseja Continuar?',
-                      maxLines: 2,
+                    title: Text('Carregando!'),
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[CircularProgressIndicator()],
                     ),
-                    actions: <Widget>[
-                      FlatButton(
-                        color: Color(0xFF7D2941),
-                        shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.close,
-                          color: Color(0xFFE9E3E3),
-                        ),
-                      ),
-                      FlatButton(
-                        color: Colors.green,
-                        shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide: BorderSide(color: Colors.transparent)),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).popAndPushNamed('/Home');
-                        },
-                        child: Icon(
-                          Icons.check,
-                          color: Color(0xFFE9E3E3),
-                        ),
+                  )
+                : loginStore.logado == false
+                    ? AlertDialog(
+                        title: Text('Erro ao Logar!'),
+                        content: Text(
+                            'Suas credenciais são inválidas! Cadastre-se ou tente novamente.'),
+                        actions: <Widget>[
+                          FlatButton(
+                            color: Color(0xFF7D2941),
+                            shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: Color(0xFFE9E3E3),
+                            ),
+                          )
+                        ],
                       )
-                    ],
-                  );
+                    : AlertDialog(
+                        title: Text('LogIn Realizado com Sucesso!'),
+                        content: Text(
+                          'Bem Vindo(a), ' +
+                              loginStore.user.username +
+                              '!\nDeseja Continuar?',
+                          maxLines: 2,
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            color: Color(0xFF7D2941),
+                            shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: Color(0xFFE9E3E3),
+                            ),
+                          ),
+                          FlatButton(
+                            color: Colors.green,
+                            shape: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).popAndPushNamed('/Home');
+                            },
+                            child: Icon(
+                              Icons.check,
+                              color: Color(0xFFE9E3E3),
+                            ),
+                          )
+                        ],
+                      );
           },
         ),
       );
@@ -154,7 +165,8 @@ class _LoginState extends State<Login> {
                     EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
                 color: Color(0xFF7D2941),
                 onPressed: () {
-                  loginStore.entrar().then(seeDialog(context));
+                  loginStore.entrar();
+                  seeDialog(context);
                 },
                 child: Text(
                   "Entrar",

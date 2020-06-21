@@ -1,7 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boom_menu/flutter_boom_menu.dart';
+import 'package:provider/provider.dart';
 import 'package:psicoapp/screens/perfil.dart';
+import 'package:psicoapp/stores/login_store.dart';
 
 import 'listaConsultas.dart';
 import 'listaPacientes.dart';
@@ -33,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginStore loginStore = Provider.of<LoginStore>(context);
     return Scaffold(
       /*appBar:
         AppBar(
@@ -91,8 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            ListaConsultas(),
-            Perfil(),
+            ListaConsultas(id: loginStore.user.id,),
+            Perfil(id: loginStore.user.id),
             ListaPaciente(),
           ],
         ),

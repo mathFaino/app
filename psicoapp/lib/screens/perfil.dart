@@ -1,11 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:psicoapp/stores/perfil_store.dart';
 import 'package:psicoapp/widgets/itemTile.dart';
 
 class Perfil extends StatelessWidget {
+  Perfil({this.id});
+
+  final id;
+
   @override
   Widget build(BuildContext context) {
+    PerfilStore perfilStore = Provider.of<PerfilStore>(context);
+    perfilStore.setPerfil(id);
+
     return SingleChildScrollView(
       child: Stack(
         alignment: Alignment.center,
@@ -29,78 +39,98 @@ class Perfil extends StatelessWidget {
             top: (MediaQuery.of(context).size.height - 56) / 5,
             child: Column(
               children: <Widget>[
-                Container(
-                    child: CircleAvatar(
-                      radius: 101,
-                      backgroundColor: Color(0xFFE9E3E3),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        clipBehavior: Clip.hardEdge,
-                        child: Image.asset('images/imagem.jpg',fit: BoxFit.cover, alignment: Alignment.center,),
-                      )
-                      
-                      
-                      /*Icon(
-                        Icons.adb,
-                        color: Color(0xFFB3A2A2),
-                        size: 90,
-                      ),*/
-                    ),
-                    padding: const EdgeInsets.all(2.0), // borde width
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF7D2941), // border color
-                      shape: BoxShape.circle,
-                    )),
-                Text(
-                  "Larrive Marques da Silva Faino",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Card(
-                      margin: EdgeInsets.all(10),
-                      color: Color(0xFFE9E3E3),
-                      elevation: 10,
-                      shape: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
+                Observer(builder: (_) {
+                  return Container(
+                      child: perfilStore.especialista != null ?
+                      CircleAvatar(
+                        backgroundImage: perfilStore.especialista.imagemPerfil == null ?
+                        AssetImage('images/imagem.jpg')
+                            :
+                        NetworkImage(perfilStore.especialista.imagemPerfil)
+                        ,
+                        radius: 101,
+                        backgroundColor: Color(0xFFE9E3E3),
+                      ) :
+                          CircleAvatar(
+                            backgroundColor:Color(0xFFE9E3E3) ,
+                            radius: 101,
+                            child: CircularProgressIndicator(),
                           ),
-                          borderRadius: BorderRadius.circular(20)),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width - 20,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ItemTile(
-                              icone: Icons.branding_watermark,
-                              titulo: "CRM",
-                              valor: "12/1234",
-                            ),
-                            ItemTile(
-                              icone: Icons.recent_actors,
-                              titulo: "CRP",
-                              valor: "12/12345",
-                            ),
-                            ItemTile(
-                              icone: Icons.call,
-                              titulo: "Tel.",
-                              valor: "(69)9 9291-9999",
-                            ),
-                            ItemTile(
-                              icone: Icons.alternate_email,
-                              titulo: "Mail",
-                              valor: "larrive@mail.com",
-                            ),
-                          ],
+                      padding: const EdgeInsets.all(2.0), // borde width
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF7D2941), // border color
+                        shape: BoxShape.circle,
+                      ));
+                }),
+                Observer(
+                  builder: (_){
+                    return perfilStore.especialista != null ?
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          perfilStore.especialista.nome,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 2,
                         ),
-                      ),
-                  ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Card(
+                            margin: EdgeInsets.all(10),
+                            color: Color(0xFFE9E3E3),
+                            elevation: 10,
+                            shape: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width - 20,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  ItemTile(
+                                    icone: Icons.branding_watermark,
+                                    titulo: "CRM",
+                                    valor: perfilStore.especialista.crm,
+                                  ),
+                                  ItemTile(
+                                    icone: Icons.recent_actors,
+                                    titulo: "CRP",
+                                    valor: perfilStore.especialista.crp,
+                                  ),
+                                  ItemTile(
+                                    icone: Icons.contact_mail,
+                                    titulo: "CPF",
+                                    valor: perfilStore.especialista.cpf,
+                                  ),
+                                  ItemTile(
+                                    icone: Icons.call,
+                                    titulo: "Tel.",
+                                    valor: perfilStore.especialista.telefone.toString(),
+                                  ),
+                                  ItemTile(
+                                    icone: Icons.alternate_email,
+                                    titulo: "Mail",
+                                    valor: perfilStore.especialista.email,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ):
+                        Padding(
+                          padding: EdgeInsets.only(top: 100),
+                          child: CircularProgressIndicator(),
+                        );
+                  },
                 ),
               ],
             ),
@@ -123,6 +153,7 @@ class Perfil extends StatelessWidget {
                 ),
                 onTap: () {
                   print("teste");
+                  Navigator.of(context).popAndPushNamed('/Login');
                 },
               )),
         ],

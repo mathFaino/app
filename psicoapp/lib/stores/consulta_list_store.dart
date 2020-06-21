@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
 import 'package:psicoapp/consts/constsAPI.dart';
-import 'package:psicoapp/models/consulta.dart';
+import 'package:psicoapp/models/consultas.dart';
+import 'package:psicoapp/models/especialista.dart';
+import 'package:psicoapp/models/trueSpecialist.dart';
 
 part 'consulta_list_store.g.dart';
 
@@ -11,25 +13,45 @@ class ConsultaListStore = _ConsultaListStore with _$ConsultaListStore;
 
 abstract class _ConsultaListStore with Store{
   @observable
-  Consulta _consulta;
+  Consultas _consultas;
 
   @computed
-  Consulta get consulta => _consulta;
+  Consultas get consultas => _consultas;
 
   @action
-  listConsultas(){
-      buscaConsultas().then((value) {
-        _consulta = value;
-        print(_consulta);
-      });
+  listConsultas(id){
+    _consultas = null;
+    buscaEspecialista(id).then((value) {
+      if(value != null){
+        buscaConsultas(value.id.toString()).then((consult) {
+          if(consult != null){
+            _consultas = consult;
+          }
+        });
+      }
+    });
+
   }
 
 
-  Future<Consulta> buscaConsultas() async{
+  Future<Consultas> buscaConsultas(n) async{
     try{
-      final response = await http.get(ConstsAPi.baseApiURL+'consulta/');
+      final response = await http.get(ConstsAPi.baseApiURL+'consulta/?especialista='+ n);
       var decodedJson = jsonDecode(response.body);
-      return Consulta.fromJson(decodedJson);
+      return Consultas.fromJson(decodedJson);
+    }catch(_){
+      print(_);
+      return null;
+    }
+  }
+
+  Future<Especialista> buscaEspecialista(id) async{
+    try{
+      final response = await http.get(ConstsAPi.baseApiURL+'especialista/?usuario=' + id);
+      var trueResponse = response.body;
+      var decodedJson = jsonDecode(trueResponse);
+      TrueSpecialist person = TrueSpecialist.fromJson(decodedJson);
+      return person.especialista[0];
     }catch(_){
       print(_);
       return null;

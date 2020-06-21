@@ -1,30 +1,58 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:psicoapp/stores/consulta_list_store.dart';
+import 'package:psicoapp/stores/login_store.dart';
 import 'package:psicoapp/widgets/appointmentCard.dart';
 
-class ListaConsultas extends StatelessWidget {
+class ListaConsultas extends StatefulWidget {
+
+  ListaConsultas({Key key, this.id}) : super(key: key);
+  final int id;
+  @override
+  _ListaConsultasState createState() => _ListaConsultasState();
+}
+
+class _ListaConsultasState extends State<ListaConsultas> {
+  ConsultaListStore consultaListStore;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    consultaListStore = ConsultaListStore();
+    consultaListStore.listConsultas(widget.id.toString());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       /*
         * quando utilizar os dados vindo da API modificar o tamanho do container de acordo com a quantidade de itens
         * */
-      //height: MediaQuery.of(context).size.height - 56,
-      padding: EdgeInsets.all(10),
+      height: MediaQuery.of(context).size.height - 56,
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       color: Color(0xFFE9E3E3),
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Observer(
-          builder: (BuildContext contex){
-            return ListView.builder(
-              itemCount: 1,
+      child: Observer(
+        builder: (BuildContext context){
+          return (consultaListStore.consultas == null) ?
+          Container(
+            color: Colors.transparent,
+            padding: EdgeInsets.all(5),
+            child:  CircularProgressIndicator(),
+          ):
+          ListView.builder(
+              itemCount: consultaListStore.consultas.consulta.length,
               itemBuilder: (context, index){
                 return GestureDetector(
-                  child: /*Card(
+                  child: Card(
                     color: Color(0xFFE9E3E3),
                     elevation: 5,
-                    shape: Border(left: BorderSide(color: situacao == null ? Colors.red : Colors.green, width: 6,)),
+                    shape: Border(left: BorderSide(color: consultaListStore.consultas.consulta[index].analiseVideo == null ? Colors.red : Colors.green, width: 6,)),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -55,7 +83,7 @@ class ListaConsultas extends StatelessWidget {
                                     ),
                                     Flexible(
                                       child:  Text(
-                                        cod.toString(),
+                                        consultaListStore.consultas.consulta[index].id.toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: Colors.black54,
@@ -72,7 +100,7 @@ class ListaConsultas extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(bottom: 6, top: 5,),
                           child: Text(
-                            nome,
+                            consultaListStore.consultas.consulta[index].paciente.nome.split(' ').first,
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -86,7 +114,7 @@ class ListaConsultas extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                data,
+                                consultaListStore.consultas.consulta[index].data.split('T').first,
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
@@ -110,8 +138,8 @@ class ListaConsultas extends StatelessWidget {
                                   heightFactor: 30,
                                   widthFactor: 30,
                                   child:  Icon(
-                                    situacao == null ? Icons.report_problem : Icons.check_box,
-                                    color: situacao == null ? Colors.red : Colors.green,
+                                    consultaListStore.consultas.consulta[index].analiseVideo == null ? Icons.report_problem : Icons.check_box,
+                                    color: consultaListStore.consultas.consulta[index].analiseVideo == null ? Colors.red : Colors.green,
                                   ),
                                 ),
                               ),
@@ -120,17 +148,15 @@ class ListaConsultas extends StatelessWidget {
                         ),
                       ],
                     ),
-                  )*/Container(),
+                  ),
                   onTap: (){
                     print("Tap'ado'");
                     Navigator.of(context).pushNamed('/Consulta');
                   },
                 );
-              },
-            );
-          },
-        ),
-      ),
+              });
+        },
+      )
     );
   }
 }

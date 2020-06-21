@@ -16,6 +16,7 @@ import 'package:psicoapp/screens/cadastroEspecialista.dart';
 import 'package:psicoapp/screens/login.dart';
 import 'package:psicoapp/models/key.dart';
 import 'package:psicoapp/stores/login_store.dart';
+import 'package:psicoapp/stores/perfil_store.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
           Provider<LoginStore>(
             create: (_) => LoginStore(),
           ),
+          Provider<PerfilStore>(
+            create: (_) => PerfilStore(),
+          ),
         ],
         child: MaterialApp(
           title: titulo,
@@ -52,7 +56,7 @@ class MyApp extends StatelessWidget {
             "/AddNewPaciente": (BuildContext context) => AddnewPaciente(),
             "/AddNewConsulta": (BuildContext context) => AddNewConsulta(),
             "/AddPaciente": (BuildContext context) => AddPaciente(),
-            "/PerfilPaciente": (BuildContext context) => PerfilPaciente(),
+            "/PerfilPaciente" : (BuildContext context) => PerfilPaciente(),
             "/Consulta": (BuildContext context) => Consulta(),
             "/Login": (BuildContext context) => Login(
                   title: titulo,

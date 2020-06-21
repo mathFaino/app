@@ -9,26 +9,26 @@ part of 'consulta_list_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ConsultaListStore on _ConsultaListStore, Store {
-  Computed<Consulta> _$consultaComputed;
+  Computed<Consultas> _$consultasComputed;
 
   @override
-  Consulta get consulta =>
-      (_$consultaComputed ??= Computed<Consulta>(() => super.consulta,
-              name: '_ConsultaListStore.consulta'))
+  Consultas get consultas =>
+      (_$consultasComputed ??= Computed<Consultas>(() => super.consultas,
+              name: '_ConsultaListStore.consultas'))
           .value;
 
-  final _$_consultaAtom = Atom(name: '_ConsultaListStore._consulta');
+  final _$_consultasAtom = Atom(name: '_ConsultaListStore._consultas');
 
   @override
-  Consulta get _consulta {
-    _$_consultaAtom.reportRead();
-    return super._consulta;
+  Consultas get _consultas {
+    _$_consultasAtom.reportRead();
+    return super._consultas;
   }
 
   @override
-  set _consulta(Consulta value) {
-    _$_consultaAtom.reportWrite(value, super._consulta, () {
-      super._consulta = value;
+  set _consultas(Consultas value) {
+    _$_consultasAtom.reportWrite(value, super._consultas, () {
+      super._consultas = value;
     });
   }
 
@@ -36,11 +36,11 @@ mixin _$ConsultaListStore on _ConsultaListStore, Store {
       ActionController(name: '_ConsultaListStore');
 
   @override
-  dynamic listConsultas() {
+  dynamic listConsultas(dynamic id) {
     final _$actionInfo = _$_ConsultaListStoreActionController.startAction(
         name: '_ConsultaListStore.listConsultas');
     try {
-      return super.listConsultas();
+      return super.listConsultas(id);
     } finally {
       _$_ConsultaListStoreActionController.endAction(_$actionInfo);
     }
@@ -49,7 +49,7 @@ mixin _$ConsultaListStore on _ConsultaListStore, Store {
   @override
   String toString() {
     return '''
-consulta: ${consulta}
+consultas: ${consultas}
     ''';
   }
 }

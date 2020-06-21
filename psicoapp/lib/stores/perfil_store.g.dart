@@ -9,6 +9,21 @@ part of 'perfil_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PerfilStore on _PerfilStore, Store {
+  final _$posPacienteAtom = Atom(name: '_PerfilStore.posPaciente');
+
+  @override
+  int get posPaciente {
+    _$posPacienteAtom.reportRead();
+    return super.posPaciente;
+  }
+
+  @override
+  set posPaciente(int value) {
+    _$posPacienteAtom.reportWrite(value, super.posPaciente, () {
+      super.posPaciente = value;
+    });
+  }
+
   final _$especialistaAtom = Atom(name: '_PerfilStore.especialista');
 
   @override
@@ -40,6 +55,7 @@ mixin _$PerfilStore on _PerfilStore, Store {
   @override
   String toString() {
     return '''
+posPaciente: ${posPaciente},
 especialista: ${especialista}
     ''';
   }

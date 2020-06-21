@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:psicoapp/screens/perfilPaciente.dart';
 
 class PatienteTile extends StatelessWidget{
 
-  PatienteTile({this.nome,this.data});
+  PatienteTile({this.nome,this.data, this.func});
 
   final String nome;
   final String data;
+  final Function func;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){print("Perfil Paciente");
-        Navigator.of(context).pushNamed('/PerfilPaciente');
-      },
+      onTap: func,
       child: Card(
         color: Color(0xFFE9E3E3),
         elevation: 5,
@@ -41,7 +41,7 @@ class PatienteTile extends StatelessWidget{
                 padding: EdgeInsets.only(left: 5, bottom: 2),
                 child: Row(
                   children: <Widget>[
-                    Text("Última consulta em: "),
+                    Text("Adicionado em: "),
                     Text(data, style: TextStyle(color: Color(0xFF4B2637) ),),
                   ],
                 ),

@@ -12,6 +12,9 @@ class PerfilStore = _PerfilStore with _$PerfilStore;
 
 abstract class _PerfilStore with Store{
   @observable
+  int posPaciente;
+
+  @observable
   Especialista especialista;
 
   @action

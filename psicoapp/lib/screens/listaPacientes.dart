@@ -1,42 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:psicoapp/stores/perfil_store.dart';
 import 'package:psicoapp/widgets/myCustomClip.dart';
 import 'package:psicoapp/widgets/patientTile.dart';
-import 'package:psicoapp/widgets/textCamp.dart';
 
 class ListaPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    PerfilStore perfilStore = Provider.of<PerfilStore>(context);
     return Stack(
       children: <Widget>[
         Container(
           //height: MediaQuery.of(context).size.height - 56,
-          padding: EdgeInsets.fromLTRB(10, 120, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 110, 10, 0),
           color: Color(0xFFE9E3E3),
-          child: SingleChildScrollView(
-            child: Column(
+          child: Observer(
+            builder: (_){
+              return perfilStore.especialista.atende == null ?
+                  Column(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: <Widget>[
+                     SizedBox(
+                       width: MediaQuery.of(context).size.width,
+                     ),
+                     Icon(Icons.assignment_late, color: Colors.amber, size: 80,),
+                     Text('Ainda não há pacientes relacionados!',
+                       style: TextStyle(fontSize: 18),),
 
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: PatienteTile(nome: "Marcos Alves Marques Faino Vieira da Silva Carvalho", data: "20/10/2019",),
-                ),
-                PatienteTile(nome: "Scarlett Ingrid Johanson",
-                  data: "20/10/2019",),
-                PatienteTile(nome: "Matheus Marques Faino", data: "20/10/2019",),
-                PatienteTile(nome: "Ágata Silva", data: "11/05/2020",),
-                PatienteTile(nome: "Theo Faino", data: "22/10/2019",),
-                PatienteTile(nome: "João Pedro", data: "01/10/2019",),
-                PatienteTile(nome: "Cláudio Silva", data: "12/09/2019",),
-                PatienteTile(nome: "Luana Silva", data: "08/11/2019",),
-                PatienteTile(nome: "Pamela Faino", data: "01/01/2020",),
-                PatienteTile(nome: "Erica Vieira", data: "20/10/2020",),
-                PatienteTile(nome: "Mary Jane", data: "11/08/2020",),
-                PatienteTile(nome: "Joaquin Nabuco", data: "28/01/2020",),
-
-              ],
-            ),
+                   ],
+                  )
+                  :
+              ListView.builder(
+                physics: BouncingScrollPhysics(),
+                  itemCount: perfilStore.especialista.atende.length,
+                  itemBuilder: (context, index){
+                    return  PatienteTile(nome: perfilStore.especialista.atende[index].paciente.nome,
+                    data: perfilStore.especialista.atende[index].data.split('-').last +
+                        "/" + perfilStore.especialista.atende[index].data.split('-')[1] +
+                      "/" + perfilStore.especialista.atende[index].data.split('-').first
+                      , func: (){
+                        perfilStore.posPaciente = index;
+                        print("Perfil Paciente");
+                        Navigator.of(context).pushNamed('/PerfilPaciente');
+                      },
+                    );
+                  });
+            },
           ),
         ),
         Positioned(
@@ -51,18 +62,32 @@ class ListaPaciente extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Color(0xFF4B2637),
                   ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search, color: Color(0xFFB3A2A2),),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFE9E3E3)),borderRadius: BorderRadius.circular(20)),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.green),borderRadius: BorderRadius.circular(20)),
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width/1.35,
+                        child: TextField(
+                          maxLines: 1,
+                          style: TextStyle(color: Color(0xFFE9E3E3)),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFE9E3E3)),borderRadius: BorderRadius.circular(20)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.green),borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                      ),
+                      MaterialButton(
+                        height: 60,
+                        child: Icon(Icons.search, color: Color(0xFFB3A2A2),size: 30,),
+                        minWidth: MediaQuery.of(context).size.width/6,
+                        onPressed: (){},
+                        elevation: 5,
+                        color: Color(0xFF7D2941),
+                        shape: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ],
                   ),
                 ),
-
-                /*
-                * Configurar o clipper após a construção
-                * */
                 ClipPath(
                   clipper: MyCustomClip(),
                   child: Container(

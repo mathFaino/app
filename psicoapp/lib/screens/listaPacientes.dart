@@ -7,9 +7,14 @@ import 'package:psicoapp/widgets/myCustomClip.dart';
 import 'package:psicoapp/widgets/patientTile.dart';
 
 class ListaPaciente extends StatelessWidget {
+  const ListaPaciente({Key key, this.id}) : super(key: key);
+  final id;
   @override
   Widget build(BuildContext context) {
     PerfilStore perfilStore = Provider.of<PerfilStore>(context);
+    if(perfilStore.especialista == null) {
+      perfilStore.setPerfil(id);
+    }
     return Stack(
       children: <Widget>[
         Container(
@@ -18,7 +23,18 @@ class ListaPaciente extends StatelessWidget {
           color: Color(0xFFE9E3E3),
           child: Observer(
             builder: (_){
-              return perfilStore.especialista.atende == null ?
+              return perfilStore.especialista == null ?
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  CircularProgressIndicator()
+                ],
+              )
+                :
+                perfilStore.especialista.atende == null ?
                   Column(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: <Widget>[

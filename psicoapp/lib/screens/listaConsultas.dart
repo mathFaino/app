@@ -44,8 +44,21 @@ class _ListaConsultasState extends State<ListaConsultas> {
             color: Colors.transparent,
             padding: EdgeInsets.all(5),
             child:  CircularProgressIndicator(),
-          ):
+          ): consultaListStore.consultas.consulta.isEmpty ?
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+              ),
+              Icon(Icons.assignment_late, color: Colors.amber, size: 80,),
+              Text('Ainda não foram realizadas consultas!',
+                style: TextStyle(fontSize: 18),),
+            ],
+          )
+              :
           ListView.builder(
+            physics: BouncingScrollPhysics() ,
               itemCount: consultaListStore.consultas.consulta.length,
               itemBuilder: (context, index){
                 return GestureDetector(

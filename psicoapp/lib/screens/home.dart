@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ListaConsultas(id: loginStore.user.id,),
             Perfil(id: loginStore.user.id),
-            ListaPaciente(),
+            ListaPaciente(id: loginStore.user.id),
           ],
         ),
       ),

@@ -47,6 +47,17 @@ mixin _$ConsultaListStore on _ConsultaListStore, Store {
   }
 
   @override
+  dynamic recarregarConsultas(dynamic id) {
+    final _$actionInfo = _$_ConsultaListStoreActionController.startAction(
+        name: '_ConsultaListStore.recarregarConsultas');
+    try {
+      return super.recarregarConsultas(id);
+    } finally {
+      _$_ConsultaListStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 consultas: ${consultas}

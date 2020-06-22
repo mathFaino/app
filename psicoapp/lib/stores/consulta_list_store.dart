@@ -20,7 +20,6 @@ abstract class _ConsultaListStore with Store{
 
   @action
   listConsultas(id){
-    _consultas = null;
     buscaEspecialista(id).then((value) {
       if(value != null){
         buscaConsultas(value.id.toString()).then((consult) {
@@ -30,13 +29,19 @@ abstract class _ConsultaListStore with Store{
         });
       }
     });
-
   }
-
+  @action
+  recarregarConsultas(id){
+    buscaConsultas(id.toString()).then((consult) {
+      if(consult != null){
+        _consultas = consult;
+      }
+    });
+  }
 
   Future<Consultas> buscaConsultas(n) async{
     try{
-      final response = await http.get(ConstsAPi.baseApiURL+'consulta/?especialista='+ n);
+      final response = await http.get(ConstsAPi.baseApiURL+'consulta/?especialista='+ n,);
       var decodedJson = jsonDecode(response.body);
       return Consultas.fromJson(decodedJson);
     }catch(_){

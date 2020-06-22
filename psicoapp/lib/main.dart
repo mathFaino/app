@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psicoapp/screens/addPaciente.dart';
+import 'package:psicoapp/screens/chooseVideo.dart';
 import 'package:psicoapp/screens/consulta.dart';
 import 'package:psicoapp/screens/home.dart';
 import 'package:psicoapp/screens/listaConsultas.dart';
@@ -15,6 +16,8 @@ import 'package:psicoapp/screens/perfilPaciente.dart';
 import 'package:psicoapp/screens/cadastroEspecialista.dart';
 import 'package:psicoapp/screens/login.dart';
 import 'package:psicoapp/models/key.dart';
+import 'package:psicoapp/stores/consulta_list_store.dart';
+import 'package:psicoapp/stores/consulta_store.dart';
 import 'package:psicoapp/stores/login_store.dart';
 import 'package:psicoapp/stores/perfil_store.dart';
 
@@ -46,6 +49,12 @@ class MyApp extends StatelessWidget {
           Provider<PerfilStore>(
             create: (_) => PerfilStore(),
           ),
+          Provider<ConsultaStore>(
+            create: (_) => ConsultaStore(),
+          ),
+          Provider<ConsultaListStore>(
+            create: (_) => ConsultaListStore(),
+          ),
         ],
         child: MaterialApp(
           title: titulo,
@@ -53,7 +62,6 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(),
           home: Login(title: titulo),
           routes: <String, WidgetBuilder>{
-
             "/AddNewPaciente": (BuildContext context) => AddnewPaciente(),
             "/AddNewConsulta": (BuildContext context) => AddNewConsulta(),
             "/AddPaciente": (BuildContext context) => AddPaciente(),
@@ -66,6 +74,7 @@ class MyApp extends StatelessWidget {
             "/Home": (BuildContext context) => MyHomePage(
                   title: titulo,
                 ),
+            "/Video" : (BuildContext context) => ChooseVideo()
           },
         ),
       ),

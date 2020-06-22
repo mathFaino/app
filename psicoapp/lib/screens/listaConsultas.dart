@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:psicoapp/stores/consulta_list_store.dart';
-import 'package:psicoapp/stores/login_store.dart';
-import 'package:psicoapp/widgets/appointmentCard.dart';
+import 'package:psicoapp/stores/consulta_store.dart';
+import 'package:psicoapp/stores/perfil_store.dart';
 
 class ListaConsultas extends StatefulWidget {
 
@@ -16,19 +16,17 @@ class ListaConsultas extends StatefulWidget {
 }
 
 class _ListaConsultasState extends State<ListaConsultas> {
-  ConsultaListStore consultaListStore;
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    consultaListStore = ConsultaListStore();
-    consultaListStore.listConsultas(widget.id.toString());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    ConsultaListStore consultaListStore = Provider.of<ConsultaListStore>(context);
+    consultaListStore.listConsultas(widget.id.toString());
+    ConsultaStore consultaStore = Provider.of<ConsultaStore>(context);
+    PerfilStore perfilStore = Provider.of<PerfilStore>(context);
+
+    if(perfilStore.especialista == null){
+      perfilStore.setPerfil(widget.id);
+    }
     return Container(
       alignment: Alignment.center,
       /*
@@ -163,7 +161,8 @@ class _ListaConsultasState extends State<ListaConsultas> {
                     ),
                   ),
                   onTap: (){
-                    print("Tap'ado'");
+                    print(consultaListStore.consultas.consulta[index].relatorio);
+                    consultaStore.setConsulta(index);
                     Navigator.of(context).pushNamed('/Consulta');
                   },
                 );

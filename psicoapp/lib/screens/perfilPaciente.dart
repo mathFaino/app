@@ -47,7 +47,6 @@ class PerfilPaciente extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 Row(
-
                                   children: <Widget>[
                                     Icon(Icons.contact_mail, color: Color(0xFFB3A2A2),),
                                     SizedBox(width: 10,),
@@ -92,7 +91,9 @@ class PerfilPaciente extends StatelessWidget {
           Positioned(
               bottom: 0,
               child: GestureDetector(
-                onTap: (){print("Adicionado!");},
+                onTap: (){
+                  Navigator.of(context).pushNamed('/AddNewConsulta');
+                  },
                 child:  Column(
                   children: <Widget>[
                     ClipPath(

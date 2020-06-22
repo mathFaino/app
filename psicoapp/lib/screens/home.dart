@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           subtitle: "Você pode registrar novas consultas",
           subTitleColor: Colors.white,
           backgroundColor: Color(0xFF7D2941),
-          onTap: (() => Navigator.of(context).pushNamed('/Consulta')),
+          onTap: (() => Navigator.of(context).pushNamed('/AddNewConsulta')),
         ),
         MenuItem(
           child: Icon(Icons.person, color: Colors.black),

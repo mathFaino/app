@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'analiseVideo.dart';
 import 'paciente.dart';
 

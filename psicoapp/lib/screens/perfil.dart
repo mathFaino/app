@@ -14,8 +14,9 @@ class Perfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PerfilStore perfilStore = Provider.of<PerfilStore>(context);
-    perfilStore.setPerfil(id);
-
+    if(perfilStore.especialista == null){
+      perfilStore.setPerfil(id);
+    }
     return SingleChildScrollView(
       child: Stack(
         alignment: Alignment.center,
